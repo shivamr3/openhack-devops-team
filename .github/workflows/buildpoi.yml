@@ -13,20 +13,20 @@ jobs:
      working-directory: ./apis/poi/web
     
    runs-on: ubuntu-latest
-    
+  
   steps:
-  - uses: actions/checkout@v2
-  - name: Build the Docker image
-    run: docker build . --file apis/poi/web/Dockerfile --tag my-image-name:$(date +%s)
-
-  # First check the code out
+    # First check the code out
   - name: Check out
     uses: actions/checkout@v2
 
-  - name: 'Login via Azure CLI'
-    uses: azure/login@v1
-    with:
-      creds: ${{ secrets.AZURE_CREDENTIALS }}
+  #- uses: actions/checkout@v2
+  #- name: Build the Docker image
+  #  run: docker build . --file apis/poi/web/Dockerfile --tag my-image-name:$(date +%s)
+
+ # - name: 'Login via Azure CLI'
+ #   uses: azure/login@v1
+ #   with:
+ #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 
 
