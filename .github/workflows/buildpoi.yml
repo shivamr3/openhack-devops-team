@@ -18,11 +18,11 @@ jobs:
    - name: Check out
      uses: actions/checkout@v2
 
-  #- uses: actions/checkout@v2
-  #- name: Build the Docker image
-  #  run: docker build . --file apis/poi/web/Dockerfile --tag my-image-name:$(date +%s)
+   - uses: actions/checkout@v2
+   - name: Build the Docker image
+     run: docker build . --file apis/poi/web/Dockerfile --tag my-image-name:$(date +%s)
 
- # - name: 'Login via Azure CLI'
- #   uses: azure/login@v1
- #   with:
- #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+   - name: 'Login via Azure CLI'
+     uses: azure/login@v1
+     with:
+       creds: ${{ secrets.AZURE_CREDENTIALS }}
