@@ -46,7 +46,7 @@ jobs:
         repo: context.repo.repo,
         title: "${{ env.build_name }} Workflow ${{ github.run_number }} Failed! ",
         body: body
-     });
+      });
 
       #  with:
       #    who-to-greet: 'Mona the Octocat'
