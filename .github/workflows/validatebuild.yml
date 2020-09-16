@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: setup .net core
-        uses: actions/setup-dotenet@v1
+        uses: actions/setup-dotnet@v1
         with:
           dotenet-version: 3.1.301
           
