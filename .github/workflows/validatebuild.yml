@@ -30,7 +30,7 @@ jobs:
         run: dotnet restore apis/poi/
      
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build apis/poi/ --configuration Release --no-restore
              
         
       #  with:
