@@ -3,7 +3,12 @@ name: ValidateDotnetBuild
 on: 
   push:
      paths:
-      - 'apis/poi/*'
+      - 'apis/poi/**'
+
+env:
+  BuildConfig: Release
+  SolutionFile: /apis/poi/poi.sln
+  ProjectFile: /apis/poi/tests/UnitTests/UnitTests.csproj
 
 jobs:
   build:
@@ -17,9 +22,13 @@ jobs:
     
       # First check the code out
       - name: Check out
-        uses: actions/checkout@v2
-        
-        
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # avoid shallow
+       
+      - name: Build
+        run: dotnet build
+             --configuration ${{env.BuildConfig}}
         
       #  with:
       #    who-to-greet: 'Mona the Octocat'
