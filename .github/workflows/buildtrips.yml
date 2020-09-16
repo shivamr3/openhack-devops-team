@@ -10,7 +10,7 @@ jobs:
    defaults:
     run:
      shell: bash
-     working-directory: ./apis/trips/web
+     working-directory: ./apis/trips
     
    runs-on: ubuntu-latest
   
