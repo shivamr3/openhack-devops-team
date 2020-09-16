@@ -1,8 +1,9 @@
 name: ValidateDotnetBuild
 # This workflow is triggered on pushes to the repository.
-on: [push]
-  #paths:
- #      - 'apis/poi/*'
+on: 
+  push:
+     paths:
+      - 'apis/poi/*'
 
 jobs:
   build:
