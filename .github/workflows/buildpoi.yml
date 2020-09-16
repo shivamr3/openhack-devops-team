@@ -18,11 +18,22 @@ jobs:
    - name: Check out
      uses: actions/checkout@v2
 
-   - uses: actions/checkout@v2
-   - name: Build the Docker image
-     run: docker build . --file apis/poi/web/Dockerfile --tag my-image-name:$(date +%s)
-
+   - name: Build Info
+     run: echo $GITHUB_RUN_NUMBER
+   
+   - name: 'Build and push image'
+     uses: azure/docker-login@v1
+     with:
+      login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+      username: ${{ secrets.REGISTRY_USERNAME }}
+      password: ${{ secrets.REGISTRY_PASSWORD }}
+   - run: | 
+      docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-poi:$GITHUB_RUN_NUMBER
+      docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-poi:$GITHUB_RUN_NUMBER
+   
    - name: 'Login via Azure CLI'
      uses: azure/login@v1
      with:
        creds: ${{ secrets.AZURE_CREDENTIALS }}
+       
+       
