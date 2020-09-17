@@ -1,0 +1,45 @@
+name: Docker Builduser-java Image CI
+# BenDQ made changes 20200916 21:03 change or delete if it doesn't work
+on:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  build-and-deploy:
+   defaults:
+    run:
+     shell: bash
+     working-directory: ./apis/user-java
+    
+   runs-on: ubuntu-latest
+  
+   steps:
+   - name: Check out
+     uses: actions/checkout@v2
+
+   - name: Build Info
+     run: echo $GITHUB_RUN_NUMBER
+   
+   - name: 'Build and push image'
+     uses: azure/docker-login@v1
+     with:
+      login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+      username: ${{ secrets.REGISTRY_USERNAME }}
+      password: ${{ secrets.REGISTRY_PASSWORD }}
+   - run: | 
+      docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-trips:$GITHUB_RUN_NUMBER
+      docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-trips:$GITHUB_RUN_NUMBER
+   
+   - name: 'Login via Azure CLI'
+     uses: azure/login@v1
+     with:
+       creds: ${{ secrets.AZURE_CREDENTIALS }}
+   
+   - name: 'WebApp Deployment'
+     uses: azure/CLI@v1
+     with:
+       inlineScript: |  
+        az webapp config container set --name openhackblp2ii07trips --resource-group openhackblp2ii07rg --docker-custom-image-name "openhackblp2ii07acr.azurecr.io/2/api-user-java:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
+
+# az webapp deployment list-publishing-credentials --name openhackblp2ii07trips --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861
