@@ -3,9 +3,14 @@ name: Docker Buildpoi Image CI
 on:
   push:
     branches: [ master ]
+<<<<<<< HEAD
         paths:
     - 'apis/poi/**'
 
+=======
+    paths:
+      - 'apis/poi/**'
+>>>>>>> 2d07f8eb853ae291063d95f682f81777b687f5a4
 
 jobs:
   build-and-deploy:
