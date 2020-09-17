@@ -1,5 +1,5 @@
 name: Docker Builduserprofile Image CI
-# BenDQ made changes 20200916 21:40 change or delete if it doesn't work
+
 on:
   push:
     branches: [ master ]

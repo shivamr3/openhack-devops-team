@@ -30,8 +30,8 @@ jobs:
       username: ${{ secrets.REGISTRY_USERNAME }}
       password: ${{ secrets.REGISTRY_PASSWORD }}
    - run: | 
-      docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-trips:$GITHUB_RUN_NUMBER
-      docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-trips:$GITHUB_RUN_NUMBER
+      docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-user-java:$GITHUB_RUN_NUMBER
+      docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-user-java:$GITHUB_RUN_NUMBER
    
    - name: 'Login via Azure CLI'
      uses: azure/login@v1
