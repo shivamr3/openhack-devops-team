@@ -41,7 +41,7 @@ jobs:
      uses: azure/CLI@v1
      with:
        inlineScript: |  
-        az webapp config container set --name openhackblp2ii07poi --resource-group openhackblp2ii07rg --docker-custom-image-name "dopenhackblp2ii07acr.azurecr.io/2/api-poi:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
+        az webapp config container set --name openhackblp2ii07poi --resource-group openhackblp2ii07rg --docker-custom-image-name "openhackblp2ii07acr.azurecr.io/2/api-poi:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
 
    - name: Wait for 2 minutes
      uses: jakejarvis/wait-action@v0.1.0
@@ -53,5 +53,8 @@ jobs:
      with:
        args: 'https://openhackblp2ii07poi-staging.azurewebsites.net/api/healthcheck/poi' 
     
-      
-# az webapp deployment list-publishing-credentials --name openhackblp2ii07poi --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861
+   - name: swap slots
+     uses: azure/CLI@v1
+     with:
+        inlineScript: |
+           az webapp deployment slot swap --name openhackblp2ii07poi --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861 --slot staging --target-slot production
