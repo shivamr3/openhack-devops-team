@@ -8,7 +8,7 @@ By using the [OpenAPI-Spec](https://github.com/OAI/OpenAPI-Specification) from a
 
 ## Running the server
 
-To run the server, follow these simple steps:
+To run the server, follow these simple stepssss:
 
 ```shell
 go run main.go
