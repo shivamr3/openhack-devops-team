@@ -23,7 +23,7 @@ Change default port value in `src/main/resources/application.properties`
 
 `mvn test`
 
-## Run the application
+## Run the application now
 
 1. Modify the `src/main/resources/application.properties` values with valid SQL Server values.
 
