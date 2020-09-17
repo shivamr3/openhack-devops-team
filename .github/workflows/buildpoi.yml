@@ -41,12 +41,12 @@ jobs:
      uses: azure/CLI@v1
      with:
        inlineScript: |  
-        az webapp config container set --name openhackblp2ii07poi --resource-group openhackblp2ii07rg --docker-custom-image-name "openhackblp2ii07acr.azurecr.io/2/api-poi:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
+        az webapp config container set --name openhackblp2ii07poi --resource-group openhackblp2ii07rg --docker-custom-image-name "dopenhackblp2ii07acr.azurecr.io/2/api-poi:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
 
    - name: Wait for 2 minutes
      uses: jakejarvis/wait-action@v0.1.0
      with:
-      time: '1s'
+      time: '10s'
       
    - name: check status code
      uses: wei/curl@v1
