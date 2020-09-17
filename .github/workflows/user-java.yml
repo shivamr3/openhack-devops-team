@@ -1,5 +1,5 @@
 name: Docker Builduser-java Image CI
-# BenDQ made changes 20200916 21:03 change or delete if it doesn't work
+# aamckay update
 on:
   push:
     branches: [ master ]
