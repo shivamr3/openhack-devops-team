@@ -3,7 +3,8 @@ name: Docker Buildtrips Image CI
 on:
   push:
     branches: [ master ]
-
+    paths:
+      - 'apis/trips/**'
 
 jobs:
   build-and-deploy:
