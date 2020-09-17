@@ -1,18 +1,17 @@
 name: Docker Builduserprofile Image CI
-# aamckay update
+
 on:
   push:
     branches: [ master ]
     paths:
-    - 'apis/userprofile/**'
-
+      - 'apis/userprofile/**'
 
 jobs:
   build-and-deploy:
    defaults:
     run:
      shell: bash
-     working-directory: ./apis/userprofile
+     working-directory: ./apis/userprofile/web
     
    runs-on: ubuntu-latest
   
@@ -44,4 +43,19 @@ jobs:
        inlineScript: |  
         az webapp config container set --name openhackblp2ii07userprofile --resource-group openhackblp2ii07rg --docker-custom-image-name "openhackblp2ii07acr.azurecr.io/2/api-userprofile:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
 
-# az webapp deployment list-publishing-credentials --name openhackblp2ii07userprofile --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861
+   - name: Wait for 2 minutes
+     uses: jakejarvis/wait-action@v0.1.0
+     with:
+      time: '120s'
+      
+   - name: check status code
+     uses: wei/curl@v1
+     with:
+       args: 'https://openhackblp2ii07userprofile-staging.azurewebsites.net/api/healthcheck/userprofile' 
+    
+   - name: swap slots
+     uses: azure/CLI@v1
+     with:
+        inlineScript: |
+           az webapp deployment slot swap --name openhackblp2ii07userprofile --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861 --slot staging --target-slot production
+
