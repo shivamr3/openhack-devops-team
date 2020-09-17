@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
     paths:
-    - 'apis/userprofile/**'
+    - 'apis/user-java/**'
 
 
 jobs:
@@ -30,8 +30,8 @@ jobs:
       username: ${{ secrets.REGISTRY_USERNAME }}
       password: ${{ secrets.REGISTRY_PASSWORD }}
    - run: | 
-      docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-user-java:$GITHUB_RUN_NUMBER
-      docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-user-java:$GITHUB_RUN_NUMBER
+      docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-userjava:$GITHUB_RUN_NUMBER
+      docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/2/api-userjava:$GITHUB_RUN_NUMBER
    
    - name: 'Login via Azure CLI'
      uses: azure/login@v1
@@ -42,6 +42,6 @@ jobs:
      uses: azure/CLI@v1
      with:
        inlineScript: |  
-        az webapp config container set --name openhackblp2ii07user-java --resource-group openhackblp2ii07rg --docker-custom-image-name "openhackblp2ii07acr.azurecr.io/2/api-user-java:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
+        az webapp config container set --name openhackblp2ii07userjava --resource-group openhackblp2ii07rg --docker-custom-image-name "openhackblp2ii07acr.azurecr.io/2/api-userjava:$GITHUB_RUN_NUMBER" --docker-registry-server-url ${{ secrets.REGISTRY_LOGIN_SERVER }} --docker-registry-server-user ${{ secrets.REGISTRY_USERNAME }} --docker-registry-server-password ${{ secrets.REGISTRY_PASSWORD }} --slot staging
 
-# az webapp deployment list-publishing-credentials --name openhackblp2ii07user-java --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861
+# az webapp deployment list-publishing-credentials --name openhackblp2ii07userjava --resource-group openhackblp2ii07rg --subscription 7f9d8105-9287-4103-b8a4-83b144afb861
