@@ -46,7 +46,7 @@ jobs:
    - name: Wait for 2 minutes
      uses: jakejarvis/wait-action@v0.1.0
      with:
-      time: '10s'
+      time: '120s'
       
    - name: check status code
      uses: wei/curl@v1
